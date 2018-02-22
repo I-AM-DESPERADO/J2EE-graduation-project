@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	  xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+	
+	<!-- 启用shiro 安全注解功能 -->
+	<aop:config proxy-target-class="true"></aop:config>  
+	<beans:bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+	    <beans:property name="securityManager" ref="securityManager"/>  
+	</beans:bean>   
+	
+	<annotation-driven />
+	<resources mapping="/assets/**" location="/assets/" />
+	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/error/**" location="/error/" />
+	<resources mapping="/fonts/**" location="/fonts/" />
+	<resources mapping="/img/**" location="/img/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/upload/**" location="/upload/" />
+	<resources mapping="/plugins/**" location="/plugins/" />
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/jspviews/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="contentType" value="text/html;charset=UTF-8" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.pzy.jcook.workflow.web,com.pzy.jcook.sys.web" />
+	
+	<beans:bean id="messageSource"   class="org.springframework.context.support.ResourceBundleMessageSource">  
+    	<beans:property name="basename" value="messages" />  
+	</beans:bean>  
+	<beans:bean id="localeResolver"  
+   		 class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />  
+</beans:beans>
